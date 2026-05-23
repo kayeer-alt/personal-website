@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Multimedia Website</title>
+
+  <!-- =========================
+       GOOGLE FONTS + ICONS
+  ========================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    /* =====================================================
+       CSS VARIABLES - EASY TO CUSTOMIZE COLORS & DESIGN
+    ===================================================== */
+
+    :root {
+      --primary-pink: #D60270;
+      --primary-purple: #9B4F96;
+      --primary-blue: #0038A8;
+      --text-color: #ffffff;
+      --muted-text: rgba(255,255,255,0.75);
+      --nav-bg: rgba(0,0,0,0.35);
+      --border: 1px solid rgba(255,255,255,0.06);
+      --card-bg: rgba(255,255,255,0.04);
+      --shadow: 0 10px 30px rgba(2,6,23,0.35);
+    }
+
+    .certificate-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .certificate-gallery img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .certificate-gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* =====================================================
+       GLOBAL STYLES
+       ==================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--primary-pink), var(--primary-purple), var(--primary-blue));
+      min-height: 100vh;
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      border-radius: 15px;
+    }
+
+    .hero-content img {
+      width: 180px;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    section {
+      padding: 100px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--text-color);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 50px;
+    }
+
+    /* =====================================================
+       NAVIGATION BAR
+    ===================================================== */
+
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(15px);
+      background: var(--nav-bg);
+      border-bottom: var(--border);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 8%;
+    }
+
+    .logo {
+      color: var(--text-color);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links li a {
+      color: var(--text-color);
+      padding: 10px;
+      display: block;
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links li a:hover {
+      color: #ffd6f0;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      min-width: 220px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .dropdown a {
+      padding: 12px 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-links li:hover .dropdown {
+      display: block;
+    }
+
+    .menu-toggle {
+      display: none;
+      color: var(--text-color);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* =====================================================
+       HERO SECTION
+    ===================================================== */
+
+    .hero {
+      min-height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(214,2,112,0.95), rgba(155,79,150,0.95));
+      color: white;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 18px 40px rgba(214,2,112,0.22);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+      animation: pulse 3.2s ease-in-out infinite;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 24px 48px rgba(214,2,112,0.28);
+      filter: brightness(1.05);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 18px 40px rgba(214,2,112,0.22);
+      }
+      50% {
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 24px 52px rgba(214,2,112,0.28);
+      }
+    }
+
+    /* =========================================
+   FAVORITES GALLERY
+========================================= */
+
+.favorites-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.favorites-gallery img {
+  width: 25%;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.favorites-gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* =========================================
+   COLLECTIONS GALLERY
+========================================= */
+
+.collections-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.collections-gallery img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.collections-gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* =========================================
+   FRIENDS GALLERY
+========================================= */
+
+.friends-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.friends-gallery img {
+  width: 25%;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.friends-gallery img:hover {
+  transform: scale(1.05);
+}
+
+    /* =========================================
+       CERTIFICATE IMAGE GALLERY
+    ========================================= */
+
+.certificate-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.certificate-gallery img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.certificate-gallery img:hover {
+  transform: scale(1.05);
+}
+
+    
+
+    /* =====================================================
+       CARD DESIGN
+    ===================================================== */
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 20px;
+      padding: 25px;
+      transition: 0.4s;
+      color: var(--text-color);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+
+    .card i {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .card ul {
+      line-height: 1.8;
+    }
+
+    .card ul {
+      padding-left: 20px;
+    }
+
+    #friends .card img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 15px;
+    }
+
+    /* =====================================================
+       GALLERY SECTION
+    ===================================================== */
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      transition: 0.4s;
+    }
+
+    .gallery-item img {
+      height: 300px;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: var(--text-color);
+      text-align: center;
+      padding: 15px;
+      transform: translateY(100%);
+      transition: 0.4s;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+
+    /* =====================================================
+       MULTIMEDIA SECTION (AESTHETIC PLAYER)
+    ===================================================== */
+
+    .media-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding-top: 10px;
+    }
+
+    .media-box {
+      max-width: 760px;
+      width: 100%;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+      color: var(--text-color);
+    }
+
+    .track-art {
+      width: 160px;
+      height: 160px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      transition: transform 0.35s ease;
+    }
+
+    .track-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .track-art.playing img {
+      animation: spin 14s linear infinite;
+      transform: scale(1.02);
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .track-info { flex: 1; }
+
+    .track-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .track-artist { font-size: 0.95rem; opacity: 0.9; margin-bottom: 12px; }
+
+    .controls { display:flex; align-items:center; gap:12px; }
+
+    .play-btn {
+      width:48px; height:48px; border-radius:50%; background:white; color:var(--primary-pink);
+      border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+
+    .play-btn:hover { transform: translateY(-3px) scale(1.02); transition: 0.18s; }
+
+    .icon-btn { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); color:white; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+
+    .icon-btn:hover { background:rgba(255,255,255,0.18); transform:translateY(-2px); }
+
+    .progress { flex:1; height:8px; background:rgba(255,255,255,0.08); border-radius:999px; position:relative; cursor:pointer; overflow:hidden; }
+    .progress-filled { position:absolute; height:100%; left:0; top:0; background:linear-gradient(90deg,var(--primary-pink),var(--primary-purple)); width:0%; }
+
+    .time { font-size:0.85rem; opacity:0.9; min-width:44px; text-align:center; }
+
+    .volume { width:110px; }
+
+    audio { display: none; }
+
+    .autoplay-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));
+      border-radius: 18px;
+      color: var(--text-color);
+      z-index: 10;
+      text-align: center;
+      padding: 20px;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .autoplay-fallback button { background: white; color: var(--primary-pink); border:none; padding:10px 16px; border-radius:10px; cursor:pointer; }
+
+    @media (max-width: 600px) {
+      .media-box { flex-direction: column; align-items: center; text-align: center; }
+      .track-art { width: 120px; height: 120px; }
+      .controls { width: 100%; }
+      .progress { margin: 0 10px; }
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+      padding: 40px 8%;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      color: var(--text-color);
+    }
+
+    .social-icons {
+      margin: 20px 0;
+    }
+
+    .social-icons a {
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ffd6f0;
+    }
+
+    /* =====================================================
+       DARK MODE BUTTON
+    ===================================================== */
+
+    .theme-toggle {
+      position: fixed;
+      right: 20px;
+      bottom: 90px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: white;
+      color: var(--primary-pink);
+      font-size: 1.3rem;
+      z-index: 999;
+      box-shadow: var(--shadow);
+    }
+
+    /* =====================================================
+       SCROLL TO TOP BUTTON
+    ===================================================== */
+
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: white;
+      color: var(--primary-blue);
+      font-size: 1.3rem;
+      display: none;
+      z-index: 999;
+      box-shadow: var(--shadow);
+    }
+
+    /* =====================================================
+       ANIMATIONS
+    ===================================================== */
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =====================================================
+       MOBILE RESPONSIVENESS
+    ===================================================== */
+
+    @media (max-width: 992px) {
+      .nav-links {
+        position: absolute;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(0,0,0,0.8);
+        padding: 20px;
+        transition: 0.4s;
+      }
+
+      .nav-links.active {
+        left: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .dropdown {
+        position: static;
+        display: none;
+        background: rgba(255,255,255,0.08);
+      }
+
+      .nav-links li.active .dropdown {
+        display: block;
+      }
+
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================
+       HEADER / NAVIGATION
+  ====================================================== -->
+
+  <header>
+    <nav>
+      <div class="logo">My Personal Website</div>
+
+      <ul class="nav-links" id="navLinks">
+
+        <!-- PERSONAL MENU -->
+        <li>
+          <a href="#personal">Personal <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown">
+            <a href="#about">Introduction/About Me</a>
+            <a href="#info">Personal Information</a>
+            <a href="#hobbies">Hobbies and Interests</a>
+          </div>
+        </li>
+
+        <!-- EDUCATIONAL MENU -->
+        <li>
+          <a href="#education">Educational <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown">
+            <a href="#es">Elementary School</a>
+            <a href="#hs">High School</a>
+            <a href="#shs">Senior High School</a>
+            <a href="#college">College</a>
+          </div>
+        </li>
+
+        <!-- FAMILY MENU -->
+        <li>
+          <a href="#family">Family <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown">
+            <a href="#father">Father</a>
+            <a href="#mother">Mother</a>
+            <a href="#siblings">Siblings</a>
+          </div>
+        </li>
+
+        <!-- COLLECTIONS MENU -->
+        <li>
+          <a href="#collections">Collections <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown">
+            <a href="#music">Favorite Music</a>
+            <a href="#movies">Favorite Anime</a>
+            <a href="#tvshows">Favorite Series</a>
+            <a href="#collections-list">Collections</a>
+          </div>
+        </li>
+
+        <!-- FRIENDS MENU -->
+        <li>
+          <a href="#friends">Friends <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown">
+            <a href="#schoolfriends">University Friends</a>
+            <a href="#hometownfriends">High School Friends</a>
+          </div>
+        </li>
+
+        <!-- ACHIEVEMENTS MENU -->
+        <li>
+          <a href="#achievements">Achievements <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown">
+            <a href="#academic">Academic Achievements</a>
+            <a href="#extra">Extracurricular Activities</a>
+            <a href="#certificates">Certificates & Recognition</a>
+          </div>
+        </li>
+
+        <li><a href="#highlights">Highlights</a></li>
+        <li><a href="#advocacy">Advocacy</a></li>
+        <li><a href="#multimedia">Multimedia</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =====================================================
+       HERO SECTION
+  ====================================================== -->
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+
+      <!-- REPLACE THIS IMAGE WITH YOUR OWN -->
+      <img src="pic%20for%20web/3a031800-b06c-404a-80a2-e7dfea4687d0.jpg" alt="Profile Picture">
+
+      <h1>Hello, I'm Francess Kaye Ermino</h1>
+      <p>
+        Welcome to my personal website! This website showcases my life through my personality, education, hobbies, achievements, family, collections, and advocacy for social change.
+      </p>
+
+      <a href="#about" class="hero-btn">Explore More</a>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       MULTIMEDIA SECTION
+  ===================================================== -->
+
+  <section id="multimedia">
+    <h2 class="section-title">Background Music</h2>
+    <p class="section-subtitle">Song that deeply speaks to my soul. Play before scrolling down for more satisfying experiences.</p>
+
+    <div class="media-container">
+
+      <div class="media-box">
+        <div class="track-art">
+          <img src="pic%20for%20web/cover%20photo.jpg" alt="Track art">
+        </div>
+
+        <div class="track-info">
+          <div class="track-title">Goodluck Babe</div>
+          <div class="track-artist">Chappell Roan</div>
+
+          <div class="controls">
+            <button id="playBtn" class="play-btn"><i class="fas fa-play"></i></button>
+
+            <div class="progress" id="progress">
+              <div class="progress-filled" id="progressFilled"></div>
+            </div>
+
+            <div class="time" id="currentTime">0:00</div>
+            <div class="time" id="duration">0:00</div>
+
+            <input id="volumeRange" class="volume" type="range" min="0" max="1" step="0.01" value="0.8">
+
+            <button id="muteBtn" class="icon-btn" title="Mute/Unmute"><i class="fas fa-volume-up"></i></button>
+          </div>
+        </div>
+
+        <audio id="bgMusic" preload="auto" loop>
+          <source src="pic%20for%20web/music.mp3" type="audio/mpeg">
+          Your browser does not support audio.
+        </audio>
+
+        <div id="autoplayFallback" class="autoplay-fallback">
+          <div style="font-weight:700; font-size:1.05rem;">Tap to enable audio</div>
+          <div style="max-width:320px; opacity:0.95;">Your browser blocked autoplay. Tap the button to start background music.</div>
+          <button id="enableAudioBtn">Enable sound</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PERSONAL SECTION
+  ===================================================== -->
+
+  <section id="personal">
+    <h2 class="section-title">Personal Information</h2>
+    <p class="section-subtitle">Learn more about me and my interests.</p>
+
+    <div class="card-grid">
+
+      <div class="card" id="about">
+        <i class="fas fa-user"></i>
+        <h3>About Me</h3>
+        <p>
+          I am an ethusiastic individual who wishes to travel and explore the endless possibilities that the world has to offer.</p>
+      </div>
+
+      <div class="card" id="info">
+        <i class="fas fa-id-card"></i>
+        <h3>Personal Information</h3>
+        <ul>
+          <li>Name: Francess Kaye O. Ermino</li>
+          <li>Age: 19</li>
+          <li>Location: T.R. Malonzo Compound, Tondo, Manila</li>
+        </ul>
+      </div>
+
+      <div class="card" id="hobbies">
+        <i class="fas fa-heart"></i>
+        <h3>Hobbies and Interests</h3>
+        <p>
+          Reading, music, watching movies, dancing, and bed-rotting.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       EDUCATIONAL SECTION
+  ====================================================== -->
+
+  <section id="education">
+    <h2 class="section-title">Educational Background</h2>
+    <p class="section-subtitle">My educational journey.</p>
+
+    <div class="card-grid">
+
+      <div class="card" id="es">
+        <i class="fas fa-school"></i>
+        <h3>Elementary School</h3>
+        <p>I attended eight years of elementary school at Bitoon Elementary School.
+      </div>
+
+      <div class="card" id="hs">
+        <i class="fas fa-book"></i>
+        <h3>High School</h3>
+        <p>I attended four years of high school at Raja Soliman Science and Technology High School.</p>
+      </div>
+
+      <div class="card" id="shs">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>Senior High School</h3>
+        <p>I attended two years of senior high school at Golden Success College Manila.</p>
+      </div>
+
+      <div class="card" id="college">
+        <i class="fas fa-university"></i>
+        <h3>College</h3>
+        <p>I am currently attending Lyceum of the Philippines University Manila where I am taking up Bachelor of Science in Customs Administration.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAMILY SECTION
+  ====================================================== -->
+
+  <section id="family">
+    <h2 class="section-title">Family</h2>
+    <p class="section-subtitle">Meet the important people in my life.</p>
+
+    <div class="card-grid">
+
+      <div class="card" id="father">
+        <i class="fas fa-user-tie"></i>
+        <h3>Father</h3>
+      
+      </ul>
+     <li>Michael Ermino</li>
+     <li>Romulo Buba</li>
+    </ul>
+  </div>
+
+
+      <div class="card" id="mother">
+        <i class="fas fa-user"></i>
+        <h3>Mother</h3>
+        <p>Janet Orejas. </p>
+      </div>
+
+      <div class="card" id="siblings">
+        <i class="fas fa-user"></i>
+        <h3>Siblings</h3>
+
+      <ul>
+    <li>Pia Mea Kylla Ermino</li>
+    <li>James Kevin Ermino</li>
+    <li>Rheian Karla Buba</li>
+    <li>Rojhun Kim Buba</li>
+    <li>Rhea Kyllie Buba</li>
+    <li>Raven Kyle Buba</li>
+    <li>Rhen Kristelle Buba</li>
+  </ul>
+</div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       COLLECTIONS SECTION
+  ====================================================== -->
+
+  <section id="collections">
+    <h2 class="section-title">Collections & Favorites</h2>
+    <p class="section-subtitle">Things I love and enjoy.</p>
+
+    <div class="card-grid">
+
+      <div class="card" id="music">
+        <i class="fas fa-music"></i>
+        <h3>Favorite Song</h3>
+        <img src="pic%20for%20web/446e5c36-9ce0-448f-b81a-c03040a16ffe.jpg" alt="Current Favorite Song">
+      </div>
+
+      <div class="card" id="movies">
+        <i class="fas fa-film"></i>
+        <h3>Favorite Anime</h3>
+        <img src="pic%20for%20web/7da75b44-4515-4708-ac9a-e3aa8fcf4ff3.jpg" alt="Current Favorite Anime">
+      </div>
+
+      <div class="card" id="tvshows">
+        <i class="fas fa-tv"></i>
+        <h3>Favorite Series</h3>
+        <img src="pic%20for%20web/a9afacaa-ccad-412c-8972-294e493633c4.jpg" alt="Current Favorite Series">
+      </div>
+
+      <div class="card" id="collections-list">
+        <i class="fas fa-star"></i>
+        <h3>Collections</h3>
+        <img src="pic%20for%20web/2c06c604-8cbe-40d8-b78c-b45a773a9b3c.jpg" alt="My Favorite Collection">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       MY FRIENDS
+  ====================================================== -->
+
+  <section id="friends">
+    <h2 class="section-title">Friends</h2>
+    <p class="section-subtitle">Special people and friendships.</p>
+
+    <div class="card-grid">
+
+      <div class="card" id="univfriends">
+        <i class="fas fa-user-friends"></i>
+        <h3>Univ Friends</h3>
+        <img src="pic%20for%20web/e5df0474-dc97-4d29-a70b-c6ba8aab17e6.jpg" alt="My University Friends">
+      </div>
+
+      <div class="card" id="highschoolfriends">
+        <i class="fas fa-user-friends"></i>
+        <h3>High School Friends</h3>
+        <img src="pic%20for%20web/e15649f4-68f5-452d-b662-9f4b53bf53df.jpg" alt="My High School Friends">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ACHIEVEMENTS SECTION
+  ====================================================== -->
+
+  <section id="achievements">
+    <h2 class="section-title">Achievements</h2>
+    <p class="section-subtitle">My milestones and accomplishments.</p>
+
+    <div class="card-grid">
+
+      <div class="card" id="academic">
+  <i class="fas fa-award"></i>
+  <h3>Academic Achievements</h3>
+
+  <ul>
+    <li>Consistent Academic Excellence Awardee (Grade 1 - Grade 6)</li>
+    <li>Elementary School Valedictorian</li>
+    <li>Elementary School - With Honors</li>
+    <li>Junior High School - With Honors</li>
+    <li>Senior High School - With Honors</li>
+  </ul>
+</div>
+
+      <div class="card" id="extracurricular">
+        <i class="fas fa-award"></i>
+        <h3>Extracurricular Activities</h3>
+        <ul>
+          <li>Girl Scout of the Philippines (Grade 1 - Grade 6)</li>
+          <li>MTAP Representative (Grade 4 - Grade 6)</li>
+          <li>1st Place in District MTAP (Grade 6)</li>
+          <li>1st Place in District Sudoku (Grade 5)</li>
+          <li>3rd Place in District Sudoku (Grade 6)</li>
+          <li>3rd Place in Sudoku (Grade 7)</li>
+          <li>Yes-O Club PIO (Grade 10)</li>
+          <li>Research Club Member (Grade 7 - Grade 10)</li>
+          <li>Best in Research (Grade 7)</li>
+          <li>Bronze Medalist in National Inventors Week 2021 (Grade 9)</li>
+          <li>Gold Medalist in 2023 MIPIBIex (Grade 10)</li>
+          <li>Ang Kalasag's News Writer (Grade 10)</li>
+          <li>2023 DSPC News Writing Participant</li>
+          <li>1st Place, Best Science and Technology Section (Filipino) | 2023 Division Schools Press Conference (DSPC)</li>
+          <li>Boy Scout of the Philippines (Grade 7 - Grade 10)</li>
+          <li>Senior Crew Leader - RSSTHS Senior Scout (2022-2023)</li>
+          <li>2023 Manila Council Youth Forum Delegate</li>
+          <li>2023 Regional Youth Forum Delegate</li>
+          <li>District 3 Scout Representative - Manila Council (2023-2024)</li>
+          <li>Philippine Society of Customs Administration Students Member (2025)</li>
+        </ul>
+      </div>
+
+      <div class="card" id="certificates">
+        <i class="fas fa-certificate"></i>
+        <h3>Certificates & Recognition</h3>
+
+  <!-- CERTIFICATE IMAGE GALLERY -->
+  <div class="certificate-gallery">
+
+    <img src="pic%20for%20web/d47ecef5-1669-47a5-a69b-d9f5b1f234a4.jpg" alt="Bronze Medalist Certificate">
+
+    <img src="pic%20for%20web/c4f2bf1e-b84c-4198-b964-6d208c06957c.jpg" alt="Best in Research Certificate">
+
+    <img src="pic%20for%20web/355570129_980025273421831_2541804586010675356_n.jpg" alt="Best Science and Technology Section">
+
+    <img src="pic%20for%20web/048eb1af-5147-416a-a378-380855e4c8f3.jpg" alt="MIPIBIex Gold Medalist">
+
+    <img src="pic%20for%20web/0d77cb15-84ce-46d1-8910-918706c4555c.jpg" alt="Manila Council Scout Representative 23' - 24'">
+
+
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GALLERY SECTION
+  ====================================================== -->
+
+  <section id="gallery">
+    <h2 class="section-title">Highlights</h2>
+    <p class="section-subtitle">Some of the memorable moments of my life.</p>
+
+    <div class="gallery">
+
+      <div class="gallery-item">
+        <img src="pic%20for%20web/555445f9-278c-4edc-a03d-a0c9bc42e2a8.jpg" alt="SPS Class of 22'-23'">
+        <div class="gallery-caption">SPS Class of 22'-23'</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="pic%20for%20web/286a373b-c3a9-411d-beb4-063db7740ff8.jpg" alt="Manila Council Scout Representative">
+        <div class="gallery-caption">Manila Council Scout Representative</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="pic%20for%20web/edd23774-ccd3-467e-8021-16c166a97247.jpg" alt="Senior High School Graduation">
+        <div class="gallery-caption">Senior High School Graduation</div>
+      </div>
+
+      
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ADVOCACY SECTION
+  ====================================================== -->
+
+  <section id="advocacy">
+    <h2 class="section-title">Advocacy & Awareness</h2>
+    <p class="section-subtitle">Creating awareness for social change.</p>
+
+    <div class="card-grid">
+
+      <div class="card">
+        <h3>Social Issue/Topic</h3>
+        <p>Gender Inequality</p>
+      </div>
+
+      <div class="card">
+        <h3>Causes</h3>
+        <p>Traditional gender roles, societal expectations, and unequal access to opportunities.</p>
+      </div>
+
+      <div class="card">
+        <h3>Effects</h3>
+        <p>Discrimination, limited career prospects, and health disparities.</p>
+      </div>
+
+      <div class="card">
+        <h3>Process of Change</h3>
+        <p>Raising awareness, engaging in dialogue, implementing policies, and fostering inclusive environments.</p>
+      </div>
+
+      <div class="card">
+        <h3>Solutions & Advocacy Actions</h3>
+        <p>Advocating for policy changes, supporting gender equality initiatives, and promoting inclusive practices in education and the workplace.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       CONTACT / FOOTER
+  ====================================================== -->
+
+  <footer id="contact">
+    <h2>Contact Me</h2>
+    <p>Email: francesskayeer@email.com</p>
+
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+
+    <p>© 2026 Personal Multimedia Website</p>
+  </footer>
+
+  <!-- DARK MODE BUTTON -->
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- SCROLL TO TOP BUTTON -->
+  <button class="scroll-top" id="scrollTopBtn">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
+  <script>
+
+    // =====================================================
+    // MOBILE MENU TOGGLE
+    // =====================================================
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    }
+
+    // =====================================================
+    // MOBILE DROPDOWN FUNCTIONALITY
+    // =====================================================
+
+    const navItems = document.querySelectorAll('.nav-links li');
+
+    if (navItems && navItems.length) {
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          if (window.innerWidth <= 992) {
+            item.classList.toggle('active');
+          }
+        });
+      });
+    }
+
+    // =====================================================
+    // DARK / LIGHT MODE TOGGLE
+    // =====================================================
+
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+
+        const icon = themeToggle.querySelector('i');
+
+        if (document.body.classList.contains('dark-mode')) {
+          icon.classList.remove('fa-moon');
+          icon.classList.add('fa-sun');
+        } else {
+          icon.classList.remove('fa-sun');
+          icon.classList.add('fa-moon');
+        }
+      });
+    }
+
+    // =====================================================
+    // SCROLL TO TOP BUTTON
+    // =====================================================
+
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    if (scrollTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.style.display = 'block';
+        } else {
+          scrollTopBtn.style.display = 'none';
+        }
+      });
+
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+
+    // =====================================================
+    // BACKGROUND MUSIC PLAYER (CUSTOM CONTROLS)
+    // =====================================================
+
+    const bgMusic = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+    const progress = document.getElementById('progress');
+    const progressFilled = document.getElementById('progressFilled');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const volumeRange = document.getElementById('volumeRange');
+    const muteBtn = document.getElementById('muteBtn');
+    const autoplayFallback = document.getElementById('autoplayFallback');
+    const enableAudioBtn = document.getElementById('enableAudioBtn');
+
+    function formatTime(sec) {
+      if (!sec || isNaN(sec)) return '0:00';
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    const trackArtImg = document.querySelector('.track-art');
+
+    if (bgMusic) {
+      // set initial volume
+      bgMusic.volume = parseFloat(volumeRange?.value || 0.8);
+
+      // update duration when metadata is loaded
+      bgMusic.addEventListener('loadedmetadata', () => {
+        if (durationEl) durationEl.textContent = formatTime(bgMusic.duration);
+      });
+
+      // update progress while playing
+      bgMusic.addEventListener('timeupdate', () => {
+        const pct = (bgMusic.currentTime / bgMusic.duration) * 100 || 0;
+        if (progressFilled) progressFilled.style.width = pct + '%';
+        if (currentTimeEl) currentTimeEl.textContent = formatTime(bgMusic.currentTime);
+      });
+
+      // play/pause button
+      if (playBtn) {
+        playBtn.addEventListener('click', () => {
+          if (bgMusic.paused) {
+            bgMusic.play();
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            if (trackArtImg) trackArtImg.classList.add('playing');
+          } else {
+            bgMusic.pause();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            if (trackArtImg) trackArtImg.classList.remove('playing');
+          }
+        });
+      }
+
+      // attempt autoplay on load (some browsers will block)
+      window.addEventListener('load', () => {
+        const p = bgMusic.play();
+        if (p !== undefined) {
+          p.then(() => {
+            // autoplay allowed
+            if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            if (!bgMusic.paused && trackArtImg) trackArtImg.classList.add('playing');
+          }).catch(() => {
+            // autoplay blocked — show fallback overlay
+            if (autoplayFallback) autoplayFallback.style.display = 'flex';
+          });
+        }
+        if (!bgMusic.paused && playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      });
+
+      // seek when clicking progress bar
+      if (progress) {
+        progress.addEventListener('click', (e) => {
+        const rect = progress.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const pct = x / rect.width;
+        if (!isNaN(bgMusic.duration)) bgMusic.currentTime = pct * bgMusic.duration;
+        });
+      }
+
+      // volume control
+      if (volumeRange) {
+        volumeRange.addEventListener('input', (e) => {
+          bgMusic.volume = parseFloat(e.target.value);
+        });
+      }
+
+      // mute/unmute
+      if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+          bgMusic.muted = !bgMusic.muted;
+          const icon = muteBtn.querySelector('i');
+          if (bgMusic.muted) {
+            icon.classList.remove('fa-volume-up'); icon.classList.add('fa-volume-mute');
+          } else {
+            icon.classList.remove('fa-volume-mute'); icon.classList.add('fa-volume-up');
+          }
+        });
+      }
+
+      // fallback enable button (user interaction to start audio)
+      if (enableAudioBtn) {
+        enableAudioBtn.addEventListener('click', () => {
+          bgMusic.play().then(() => {
+            if (autoplayFallback) autoplayFallback.style.display = 'none';
+            if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            if (trackArtImg) trackArtImg.classList.add('playing');
+          }).catch(() => {
+            // still blocked — keep overlay shown
+          });
+        });
+      }
+    }
+
+  </script>
+
+</body>
+</html>
+
+<!-- =====================================================
+     HOW TO CUSTOMIZE THIS WEBSITE
+====================================================== -->
+
+<!--
+1. WHERE TO REPLACE PICTURES
+----------------------------------
+- Search for all image links like:
+  https://picsum.photos/
+
+- Replace them with your own image paths.
+
+Example:
+<img src="images/profile.jpg">
+
+- Gallery images are inside the GALLERY SECTION.
+
+
+2. WHERE TO REPLACE TEXT
+----------------------------------
+- Replace placeholder text like:
+  "Write your introduction here"
+  "Your Name"
+  "your@email.com"
+
+- All sections are labeled with comments for easy editing.
+
+
+3. HOW TO ADD MORE SECTIONS
+----------------------------------
+- Copy this structure:
+
+<section>
+  <h2 class="section-title">New Section</h2>
+  <div class="card-grid">
+    <div class="card">
+      Content Here
+    </div>
+  </div>
+</section>
+
+- Then add a new navigation link inside the navbar.
+
+
+4. HOW TO CHANGE COLORS
+----------------------------------
+- Edit the CSS variables at the top:
+
+:root {
+  --primary-pink: #D60270;
+  --primary-purple: #9B4F96;
+  --primary-blue: #0038A8;
+}
+
+
+5. HOW TO ADD MUSIC
+----------------------------------
+- Replace:
+  sample-music.mp3
+
+- With your own MP3 file.
+
+
+6. HOW TO CHANGE THE VIDEO
+----------------------------------
+- Replace the YouTube embed link:
+
+https://www.youtube.com/embed/VIDEO_ID
+
+
+7. HOW TO UPLOAD ONLINE
+----------------------------------
+
+GITHUB PAGES:
+1. Create a GitHub account.
+2. Create a new repository.
+3. Upload this HTML file.
+4. Go to Settings > Pages.
+5. Select the main branch.
+6. Your website link will be generated.
+
+NETLIFY:
+1. Go to Netlify.
+2. Drag and drop your HTML file.
+3. Your live website link will appear.
+
+VERCEL:
+1. Go to Vercel.
+2. Import/upload your project.
+3. Deploy instantly.
+
+
+8. BEGINNER TIP
+----------------------------------
+- Save this file as:
+  index.html
+
+- Keep all images, audio, and files inside folders like:
+  /images
+  /audio
+  /videos
+
+====================================================== -->
